@@ -120,7 +120,23 @@ print("100000000000000000000000000000000000000000".count("0"))
 # 19. How many ’n’ are there in the first half of the string
 # ’Something out of nothing? I really doubt we can do it anytime soon..’
 
+print("\n19. How many ’n’ are there in the first half of the string ’Something out of nothing? I really doubt we can do it anytime soon..’\n")
 
+original = "Something out of nothing? I really doubt we can do it anytime soon.."
+
+print(original.split("?")[0].count("n"))
 
 # 20. Replace all ’0’ except the first with ’9’ in godzillion (see definition above).
+
+print("\n20. Replace all ’0’ except the first with ’9’ in godzillion (see definition above).\n")
+
+godzillion = "100000000000000000000000000000000000000000"
+
+print(godzillion[:2] + godzillion[2:].replace("0", "9"))
+
+
 # 21. From ’what,if,we,have,no,choice?....’ create ’What if we have no choice?’
+
+print("\n21. From ’what,if,we,have,no,choice?....’ create ’What if we have no choice?’\n")
+
+print("what,if,we,have,no,choice?....".replace(",", " ").strip("."))
