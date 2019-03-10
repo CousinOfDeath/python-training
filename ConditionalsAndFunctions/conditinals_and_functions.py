@@ -97,6 +97,7 @@ print(f"print_digits(9) {print_digits(9)}")
 print(f"print_digits(10) {print_digits(10)}")
 print(f"print_digits(99) {print_digits(99)}")
 print(f"print_digits(100) {print_digits(100)}")
+print("")
 
 
 # 6. Pig Latin is a language game that involves altering words via a simple set of rules.
@@ -105,6 +106,23 @@ print(f"print_digits(100) {print_digits(100)}")
 # of the remainder of the word. For example, pig_latin('pig') would return 'igpay'. If the first letter in word
 # is a vowel, append 'way' to the end of the word. For example, pig_latin('omelet') returns 'omeletway'.
 # You can assume that word is in lower case.
+
+
+def pig_latin(word):
+    consonants = " BCDFGHJKLMNPQRSTVXZ"
+    vowels = "AEIOU"
+    if word[0:1].upper() in vowels:
+        return word[1:] + word[0:1] + "ay"
+    elif word[0:1].upper() in consonants:
+        return word + "way"
+    else:
+        return "Does not start either with consonant or vowel"
+
+
+print(f"pig_latin(\"alpha\") {pig_latin('alpha')}")
+print(f"pig_latin(\"stark\") {pig_latin('stark')}")
+print(f"pig_latin(\"1noway\") {pig_latin('1noway')}")
+print("")
 
 
 # 7. Given numbers a, b, and c, the quadratic equation ax^2 + bx + c = 0 can have zero, one or two real solutions
@@ -118,3 +136,18 @@ print(f"print_digits(100) {print_digits(100)}")
 # 'Error: No real solutions.' and simply return.
 
 
+def get_smaller_root(a, b, c):
+    # ax^2 + bx + c = 0
+    d = (b ** 2) - (4 * a * c)
+    if d < 0:
+        print("Error: No real solutions.")
+    else:
+        # -b+sqrt(d) / 2a
+        first_solution = (-b + d**.5) / 2 * a
+        # -b-sqrt(d) / 2a
+        second_solution = (-b - d ** .5) / 2 * a
+        return min(first_solution, second_solution)
+
+
+print(f"get_smaller_root(1, -5, 4): {get_smaller_root(1, -5, 4):}")
+print(f"get_smaller_root(1, 2, 3): {get_smaller_root(1, 2, 3):}")
