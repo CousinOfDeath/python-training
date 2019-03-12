@@ -1,3 +1,5 @@
+import random
+
 TRIES = 10
 OFFER_NEXT_GAME = 'Would you like to have another try? (y/n)\n'
 GAME_WON_PHRASE = 'Congratulations!'
@@ -108,9 +110,11 @@ def start_new_game(word, max_tries):
             print(obfuscated_word)
             print(GAME_WON_PHRASE)
 
-            print(OFFER_NEXT_GAME)
+            new_game = ""
 
-            new_game = input().upper()
+            while new_game != "Y" and new_game != "N":
+                print(OFFER_NEXT_GAME)
+                new_game = input().upper()
 
             if new_game == "Y":
                 return 1
@@ -137,4 +141,11 @@ def start_new_game(word, max_tries):
     print(GAME_LOST_PHRASE)
 
 
-initialize(['Obi-Wan Kenobi', 'Alladin'])
+with open("nounlist.txt", "r") as noun_file:
+    lines = noun_file.readlines()
+
+nouns = [n for n in lines if len(n) > 5]
+random.shuffle(nouns)
+
+initialize(nouns)
+
