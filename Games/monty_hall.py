@@ -2,7 +2,7 @@ import random
 import plotly.plotly as py
 import plotly.graph_objs as go
 
-py.sign_in(username='CousinOfDeath', api_key='SUaUS2N2RdsUbOJ8jG30')
+py.sign_in(username='CousinOfDeath', api_key='')
 
 # https://www.math.ucsd.edu/~crypto/Monty/monty.html
 
