@@ -9,7 +9,14 @@ def generate_cipher():
     print(generate_cipher()) -> [5, 0, 3, 9]
     print(generate_cipher()) -> [3, 4, 8, 6]
     """
-    return [random.randrange(0, 10), random.randrange(0, 10), random.randrange(0, 10), random.randrange(0, 10)]
+    cipher = []
+
+    while len(cipher) < 4:
+        random_number = random.randrange(0, 10)
+        if random_number not in cipher:
+            cipher.append(random_number)
+
+    return cipher
 
 
 def get_bulls_and_cows(cipher, guess):
@@ -82,12 +89,27 @@ def play_game():
 
     # Congrats, You win
 
-    # remove the pass statement and put your code here
-    pass
+    guesses = []
+    cipher = generate_cipher()
+    won = False
 
-print(generate_cipher())
-print(generate_cipher())
-print(generate_cipher())
-print(generate_cipher())
+    while won is False:
+        print("Enter your guess without spaces:")
+        guess = input()
 
-print(get_bulls_and_cows(generate_cipher(), [1, 2, 3, 4]))
+        if not guess.isnumeric() or len(guess) is not 4 or len(set([int(i) for i in list(guess)])) is not 4:
+            print("Insert 4 unique digits")
+            continue
+
+        guess_list = [int(i) for i in list(guess)]
+        bulls_and_cows = get_bulls_and_cows(cipher, guess_list)
+
+        guesses.append(f"{guess} bulls: {bulls_and_cows[0]}, cows: {bulls_and_cows[1]}")
+        print("\n".join(guesses))
+
+        if bulls_and_cows[0] is 4:
+            print("Congrats, You win")
+            won = True
+
+
+play_game()
