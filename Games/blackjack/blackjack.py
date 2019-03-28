@@ -229,7 +229,7 @@ def play():
         not_busted = [p for p in table.players if not p.hand.busted()]
 
         # Dealer taking cards
-        while table.dealer.hand.get_value() < max(p.hand.get_value() for p in table.players):
+        while len(not_busted) > 0 and table.dealer.hand.get_value() < max(p.hand.get_value() for p in not_busted):
             table.dealer.hand.add_card(table.deck.deal_card())
             print(table.dealer)
 
@@ -246,20 +246,7 @@ def play():
             #for player in greater_than_dealer:
             #    player.add_balance(2)
             #    cprint(player, "green")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            d = 0
 
 
 
@@ -269,6 +256,5 @@ def play():
 #while counter <= 52:
 #    print(d.deal_card())
 #    counter += 1
-
 
 play()
