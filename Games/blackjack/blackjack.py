@@ -205,14 +205,19 @@ def play():
             hit_me = input() is 'y'
 
             if hit_me:
-                # Deal card
-                player.hand.add_card(table.deck.deal_card())
-                cprint(player, "yellow")
+                while hit_me:
+                    # Deal card
+                    player.hand.add_card(table.deck.deal_card())
+                    cprint(player, "yellow")
 
-                # Check if busted
-                if player.hand.busted():
-                    cprint("Sorry you busted", "red")
-                    move_on = True
+                    # Check if busted
+                    if player.hand.busted():
+                        cprint("Sorry you busted", "red")
+                        move_on = True
+                        break
+                    else:
+                        print(f"{player.name}: Card 'y/n'?")
+                        hit_me = input() is 'y'
             else:
                 move_on = True
 
@@ -220,20 +225,24 @@ def play():
             if move_on:
                 continue
 
-        # TODO: Logic to add card for Dealer
-
         # Players that did not bust
         not_busted = [p for p in table.players if not p.hand.busted()]
 
+        # Dealer taking cards
+        while table.dealer.hand.get_value() < max(p.hand.get_value() for p in table.players):
+            table.dealer.hand.add_card(table.deck.deal_card())
+            print(table.dealer)
+
         if table.dealer.hand.busted():
+            cprint("Dealer busted", "red")
+
             # If dealer busted then all not busted players win
             for player in not_busted:
                 player.add_balance(2)
                 cprint(player, "green")
         else:
-            # Get the winner(s)
-            greater_than_dealer = [p for p in not_busted if p.hand.get_value() > table.dealer.hand.get_value()]
-            # TODO: Get the winning player(s)
+            # TODO: Get the winner(s)
+            # greater_than_dealer = [p for p in not_busted if p.hand.get_value() > table.dealer.hand.get_value()]
             #for player in greater_than_dealer:
             #    player.add_balance(2)
             #    cprint(player, "green")
