@@ -183,10 +183,10 @@ def play():
         for player in table.players:
             player.decrease_balance(1)
 
-        # Deal two cards for dealer
+        # Deal one card for dealer. The second card is hidden
         table.dealer.hand = Hand()
         table.dealer.hand.add_card(table.deck.deal_card())
-        table.dealer.hand.add_card(table.deck.deal_card())
+
         print(table.dealer)
 
         # Deal two cards for players
@@ -229,10 +229,13 @@ def play():
         not_busted = [p for p in table.players if not p.hand.busted()]
 
         # Dealer taking cards
-        while len(not_busted) > 0 and table.dealer.hand.get_value() < max(p.hand.get_value() for p in not_busted):
+        table.dealer.hand.add_card(table.deck.deal_card())
+        print(table.dealer)
+        while len(not_busted) > 0 and table.dealer.hand.get_value() < 17:
             table.dealer.hand.add_card(table.deck.deal_card())
             print(table.dealer)
 
+        # Did the dealer go bust
         if table.dealer.hand.busted():
             cprint("Dealer busted", "red")
 
@@ -242,19 +245,17 @@ def play():
                 cprint(player, "green")
         else:
             # TODO: Get the winner(s)
-            # greater_than_dealer = [p for p in not_busted if p.hand.get_value() > table.dealer.hand.get_value()]
+            greater_than_dealer = [p for p in not_busted if p.hand.get_value() > table.dealer.hand.get_value()]
+            print(len(greater_than_dealer))
             #for player in greater_than_dealer:
             #    player.add_balance(2)
             #    cprint(player, "green")
-            d = 0
 
+        # Allow players to exit
+        for player in table.players:
+            print(f"{player.name}: wanna leave 'y/n'?")
+            leave = input()
+            # TODO: Implement leaving
 
-
-#d = Deck()
-
-#counter = 1
-#while counter <= 52:
-#    print(d.deal_card())
-#    counter += 1
 
 play()
