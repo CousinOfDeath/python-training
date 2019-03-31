@@ -159,15 +159,17 @@ def play():
     table = Table(5)
 
     while start is False:
-        print(F"Enter name for player {count}. You will be given 10 credits to play.")
-        name = input()
-        # TODO: Validate length and uniqueness
+        name = ""
+        while len(name) is 0:
+            print(F"Enter name for player {count}. You will be given 10 credits to play.")
+            name = input()
+
+        # Add player
         player = Player(name, 10, False)
         table.add_player(player)
 
         print("Wanna start or are there more players? Insert 'Y' to start and some other key to add another player.")
-        # TODO: Validate input
-        start = input() is 'y'
+        start = input().upper() == 'Y'
         count += 1
 
         if start:
@@ -199,10 +201,9 @@ def play():
         # Check whether the players want more cards
         for player in table.players:
             move_on = False
-            print(f"{player.name}: Card 'y/n'?")
+            print(f"{player.name}: Card 'y'?")
 
-            # TODO: Validate input
-            hit_me = input() is 'y'
+            hit_me = input().upper() == "Y"
 
             if hit_me:
                 while hit_me:
@@ -217,7 +218,7 @@ def play():
                         break
                     else:
                         print(f"{player.name}: Card 'y/n'?")
-                        hit_me = input() is 'y'
+                        hit_me = input().upper() == "Y"
             else:
                 move_on = True
 
@@ -244,18 +245,19 @@ def play():
                 player.add_balance(2)
                 cprint(player, "green")
         else:
-            # TODO: Get the winner(s)
+            # Get the winner(s) and pay
             greater_than_dealer = [p for p in not_busted if p.hand.get_value() > table.dealer.hand.get_value()]
-            print(len(greater_than_dealer))
-            #for player in greater_than_dealer:
-            #    player.add_balance(2)
-            #    cprint(player, "green")
+            for player in greater_than_dealer:
+                player.add_balance(2)
+                cprint(player, "green")
 
         # Allow players to exit
-        for player in table.players:
-            print(f"{player.name}: wanna leave 'y/n'?")
-            leave = input()
-            # TODO: Implement leaving
+        players = table.players.copy()
+        for player in players:
+            print(f"{player.name}: wanna leave 'y'?")
+            leave = input().upper() == "Y"
+            if leave:
+                table.remove_player(player)
 
 
 play()
