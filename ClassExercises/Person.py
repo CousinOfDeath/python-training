@@ -18,6 +18,18 @@ class Person:
         return f"{self.full_name()} is {self.age()} years old"
 
 
+class Employee(Person):
+    def __init__(self, first_name, last_name, year, company_name, social_security_number):
+        super().__init__(first_name, last_name, year)
+        self.company_name = company_name
+        self.social_security_number = social_security_number
+
+    def __str__(self):
+        return f"{super().__str__()}, {self.company_name}, {self.social_security_number}"
+
+
 p = Person("Cousin", "Death", 1982)
+e = Employee("Second", "Cousin", 1999, "D´vil", "010199-1234")
 
 print(p)
+print(e)
